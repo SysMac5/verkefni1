@@ -18,11 +18,13 @@ b = h^4 / EI * f * ones(n, 1);
 A = zeros(n, n);
 for i = 1:n
     for j = 1:n
-        A(i, j) = A_func(i, j, n); % Evaluate the function for each pair of indices
+        A(i, j) = A_func(i, j, n);
     end
 end
 
-disp(A)
+y = A\b;
+
+disp(y)
 
 function x=A_func(i,j,n)
     if i == 1 && j < 5
