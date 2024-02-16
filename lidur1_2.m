@@ -7,20 +7,10 @@ x = h:h:L;
 I = (w*d^3)/12;
 E = 1.3e10;
 g = 9.81;
+f = -480 * w * d * g;
 
-f = -480 * w * d * g; % krafturinn
-
-% Skilgreina b
 b = h^4 / (E * I) * f * ones(n, 1);
-
-% Skilgreina A
-A = zeros(n, n);
-for i = 1:n
-    for j = 1:n
-        A(i, j) = A_func(i, j, n);
-    end
-end
-
+A = A_func(n);
 y = A\b;
 
 disp('y =')

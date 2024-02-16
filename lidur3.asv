@@ -6,24 +6,26 @@ I = w*d^3/12;
 E = 1.3e10;
 g = 9.81;
 
-EI = E * (w * d^3) / 12;
 f = -480 * w * d * g; % krafturinn
 
 error = zeros(11,1);
+condition = zeros(11,1);
+nvalue = zeros(11,1);
 
 for k = 1:11
 
-    n = n_base * 2^k;
+    n = n_base * (2^k);
     h = L/n;
     x = h:h:L;
+    y_correct = (f / (24 * E * I)) * x.^2 .* (x.^2 - 4*L.*x + 6*L^2);
 
     % Skilgreina b
-    b = h^4 / EI * f * ones(n, 1);
+    b = h^4 / (E * I) * f * ones(n, 1);
     
     % Skilgreina A
     A = sparse(n,n);
     for i = 1:n
-        for j = 1:n
+        for j = (i-3):(i+3)
             if A_func(i, j, n) ~= 0
                 A(i, j) = A_func(i, j, n);
             end
@@ -32,10 +34,11 @@ for k = 1:11
     
     y = A\b;
     
-    error = abs(y - y_)
-    error(k) = abs(y(end) - y_correct_vals(end));
+    error(k) = abs(y(n) - y_correct(n));
+    condition(k) = condest(A);
+    nvalue(k) = n;
 
 end
 
-error
-
+table(nvalue,error)
+table(nvalue,condition)
