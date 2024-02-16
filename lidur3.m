@@ -18,6 +18,8 @@ for k = 1:11
     x = h:h:L;
     y_correct = (f / (24 * E * I)) * x.^2 .* (x.^2 - 4*L.*x + 6*L^2);
 
+    disp('size(b)')
+    size(b)
     b = h^4 / (E * I) * f * ones(n, 1);
     A = A_func(n);
     y = A\b;
