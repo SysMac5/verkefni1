@@ -47,9 +47,8 @@ title('');
 
 
 figure;
-%plot(log(h),log(error));
 loglog(hvalue,error,'-o');
-xlabel('h');
+xlabel('log(h)');
 ylabel('Error');
 title('Error vs. h on a log-log graph');
 grid on;
